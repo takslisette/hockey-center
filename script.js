@@ -1,6 +1,6 @@
 
 // NHL API -rajapinnan osoite
-const API_URL = "https://api-web.nhle.com/v1/standings/now";
+const API_URL = "https://proxy.cors.dev/https://api-web.nhle.com/v1/standings/now";
 
 // Haetaan NHL-joukkueiden tiedot API:sta
 async function getTeams() {
