@@ -1,27 +1,49 @@
 
 <!DOCTYPE html>
 <html lang="fi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Hockey Center - NHL</title>
+
+    <!-- Yhdistetään CSS-tiedosto -->
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
+    <!-- Sivun yläosa -->
     <header>
-        <h1>Hockey Center</h1>
+        <h1>🏒 Hockey Center</h1>
         <p>Kaikki NHL-joukkueet yhdessä paikassa</p>
     </header>
 
+    <!-- Sivun pääsisältö -->
     <main>
+
         <h2>NHL-joukkueet</h2>
 
+        <!-- Joukkueiden hakukenttä -->
+        <div class="search-container">
+            <input
+                type="text"
+                id="teamSearch"
+                placeholder="Hae NHL-joukkuetta..."
+                aria-label="Hae NHL-joukkuetta"
+            >
+        </div>
+
+        <!-- Tähän JavaScript lisää joukkueet -->
         <div id="teams">
             Ladataan joukkueita...
         </div>
+
     </main>
 
+    <!-- Yhdistetään JavaScript-tiedosto -->
     <script src="script.js"></script>
+
 </body>
 </html>
