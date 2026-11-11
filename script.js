@@ -36,6 +36,7 @@ async function getTeams() {
 
         // Näytetään kaikki joukkueet
         displayTeams(allTeams);
+        populateTeamSelect(allTeams);
 
     } catch (error) {
 
@@ -325,3 +326,127 @@ function displayStandings(teams) {
 
 // Käynnistetään sarjataulukon haku
 getStandings();
+
+
+// Täytetään joukkuevalikko NHL-joukkueilla
+function populateTeamSelect(teams) {
+
+    const teamSelect = document.getElementById("teamSelect");
+
+    teams.forEach(team => {
+
+        const option = document.createElement("option");
+
+        // Joukkueen lyhenne toimii valinnan arvona
+        option.value = team.teamAbbrev.default;
+
+        // Näytetään joukkueen nimi valikossa
+        option.textContent = team.teamName.default;
+
+        teamSelect.appendChild(option);
+
+    });
+}
+
+
+// Haetaan valitun joukkueen otteluohjelma
+async function getTeamSchedule(teamAbbrev) {
+
+    const scheduleContainer = document.getElementById("teamSchedule");
+
+    const scheduleUrl =
+        "https://proxy.cors.dev/https://api-web.nhle.com/v1/club-schedule-season/"
+        + teamAbbrev + "/now";
+
+    scheduleContainer.textContent = "Ladataan otteluohjelmaa...";
+
+    try {
+
+        // Haetaan joukkueen ottelut API:sta
+        const response = await fetch(scheduleUrl);
+
+        if (!response.ok) {
+            throw new Error("Otteluohjelman hakeminen epäonnistui");
+        }
+
+        const data = await response.json();
+
+        // Näytetään haetut ottelut
+        displayTeamSchedule(data.games);
+
+    } catch (error) {
+
+        console.error("Otteluohjelman virhe:", error);
+
+        scheduleContainer.textContent =
+            "Otteluohjelman lataaminen epäonnistui.";
+
+    }
+}
+
+
+// Näytetään joukkueen otteluohjelma
+function displayTeamSchedule(games) {
+
+    const scheduleContainer = document.getElementById("teamSchedule");
+
+    scheduleContainer.innerHTML = "";
+
+    if (!games || games.length === 0) {
+
+        scheduleContainer.textContent = "Otteluita ei löytynyt.";
+
+        return;
+    }
+
+    games.forEach(game => {
+
+        const gameCard = document.createElement("div");
+
+        gameCard.classList.add("team-card");
+
+        const date = document.createElement("p");
+        date.textContent = "Päivämäärä: " + game.gameDate;
+
+        const teams = document.createElement("h3");
+
+        teams.textContent =
+            game.awayTeam.abbrev + " "
+            + (game.awayTeam.score ?? "-")
+            + " – "
+            + (game.homeTeam.score ?? "-")
+            + " "
+            + game.homeTeam.abbrev;
+
+        const status = document.createElement("p");
+        status.textContent = "Ottelun tila: " + game.gameState;
+
+        gameCard.appendChild(date);
+        gameCard.appendChild(teams);
+        gameCard.appendChild(status);
+
+        scheduleContainer.appendChild(gameCard);
+
+    });
+}
+
+
+// Lisätään joukkuevalikolle tapahtumankäsittelijä
+const teamSelect = document.getElementById("teamSelect");
+
+teamSelect.addEventListener("change", function() {
+
+    const selectedTeam = teamSelect.value;
+
+    if (selectedTeam) {
+
+        getTeamSchedule(selectedTeam);
+
+    } else {
+
+        document.getElementById("teamSchedule").textContent =
+            "Valitse joukkue nähdäksesi sen otteluohjelman.";
+
+    }
+
+});
