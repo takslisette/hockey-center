@@ -113,3 +113,56 @@ main {
     color: #cbd5e1;
     margin: 8px 0;
 }
+
+
+/* Sarjataulukon ulkoasu */
+#standings {
+    overflow-x: auto;
+    margin-bottom: 35px;
+}
+
+#standings table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #1d304b;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#standings th {
+    background-color: #182b45;
+    color: #4b9fff;
+    padding: 14px;
+    text-align: left;
+}
+
+#standings td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #344b68;
+}
+
+#standings tr:hover {
+    background-color: #29415f;
+}
+
+/* Otteluiden ja otteluohjelman kortit */
+#games,
+#teamSchedule {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 35px;
+}
+
+/* Joukkuevalikko */
+#teamSelect {
+    padding: 12px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+    border: 1px solid #344b68;
+    background-color: #1d304b;
+    color: white;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
