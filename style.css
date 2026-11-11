@@ -1,0 +1,52 @@
+
+/* Sivun yleinen ulkoasu */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #101827;
+    color: white;
+}
+
+/* Yläpalkki */
+header {
+    background-color: #182b45;
+    text-align: center;
+    padding: 30px;
+}
+
+/* Pääotsikko */
+header h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+/* Pääsisältö */
+main {
+    padding: 30px;
+}
+
+/* Joukkueiden korttien asettelu */
+#teams {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+/* Yksittäinen joukkuekortti */
+.team-card {
+    background-color: #1d304b;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #344b68;
+}
+
+/* Joukkueen nimi */
+.team-card h3 {
+    color: #ffffff;
+    font-size: 20px;
+}
+
+/* Joukkueen tilastot */
+.team-card p {
+    color: #cbd5e1;
+}
