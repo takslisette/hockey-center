@@ -223,3 +223,105 @@ function displayGames(games) {
 
 // Käynnistetään otteluiden haku
 getGames();
+
+
+// NHL-sarjataulukon API-osoite
+const STANDINGS_API_URL = "https://proxy.cors.dev/https://api-web.nhle.com/v1/standings/now";
+
+// Haetaan NHL-sarjataulukko
+async function getStandings() {
+
+    const standingsContainer = document.getElementById("standings");
+
+    try {
+
+        // Haetaan sarjataulukon tiedot API:sta
+        const response = await fetch(STANDINGS_API_URL);
+
+        if (!response.ok) {
+            throw new Error("Sarjataulukon hakeminen epäonnistui");
+        }
+
+        // Muutetaan vastaus JSON-muotoon
+        const data = await response.json();
+
+        // Näytetään sarjataulukko
+        displayStandings(data.standings);
+
+    } catch (error) {
+
+        console.error("Sarjataulukon virhe:", error);
+
+        standingsContainer.textContent =
+            "Sarjataulukon lataaminen epäonnistui.";
+    }
+}
+
+
+// Näytetään sarjataulukko sivulla
+function displayStandings(teams) {
+
+    const standingsContainer = document.getElementById("standings");
+
+    standingsContainer.innerHTML = "";
+
+    // Luodaan taulukko
+    const table = document.createElement("table");
+
+    // Luodaan taulukon otsikko
+    const headerRow = document.createElement("tr");
+
+    const headers = ["Sija", "Joukkue", "Ottelut", "Voitot", "Pisteet"];
+
+    headers.forEach(headerText => {
+
+        const th = document.createElement("th");
+        th.textContent = headerText;
+
+        headerRow.appendChild(th);
+
+    });
+
+    table.appendChild(headerRow);
+
+    // Järjestetään joukkueet pisteiden mukaan
+    const sortedTeams = [...teams].sort(
+        (a, b) => b.points - a.points
+    );
+
+    // Lisätään joukkueet taulukkoon
+    sortedTeams.forEach((team, index) => {
+
+        const row = document.createElement("tr");
+
+        const position = document.createElement("td");
+        position.textContent = index + 1;
+
+        const name = document.createElement("td");
+        name.textContent = team.teamName.default;
+
+        const games = document.createElement("td");
+        games.textContent = team.gamesPlayed;
+
+        const wins = document.createElement("td");
+        wins.textContent = team.wins;
+
+        const points = document.createElement("td");
+        points.textContent = team.points;
+
+        row.appendChild(position);
+        row.appendChild(name);
+        row.appendChild(games);
+        row.appendChild(wins);
+        row.appendChild(points);
+
+        table.appendChild(row);
+
+    });
+
+    standingsContainer.appendChild(table);
+}
+
+
+// Käynnistetään sarjataulukon haku
+getStandings();
