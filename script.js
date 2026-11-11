@@ -144,3 +144,82 @@ searchInput.addEventListener("input", function() {
 
 // Käynnistetään NHL-joukkueiden haku
 getTeams();
+
+
+// NHL:n tämän päivän otteluiden API-osoite
+const GAMES_API_URL = "https://proxy.cors.dev/https://api-web.nhle.com/v1/score/now";
+
+// Haetaan tämän päivän ottelut
+async function getGames() {
+
+    const gamesContainer = document.getElementById("games");
+
+    try {
+
+        // Haetaan ottelut NHL:n API:sta
+        const response = await fetch(GAMES_API_URL);
+
+        if (!response.ok) {
+            throw new Error("Otteluiden hakeminen epäonnistui");
+        }
+
+        // Muutetaan vastaus JSON-muotoon
+        const data = await response.json();
+
+        // Näytetään ottelut sivulla
+        displayGames(data.games);
+
+    } catch (error) {
+
+        console.error("Otteluvirhe:", error);
+
+        gamesContainer.textContent =
+            "Otteluiden lataaminen epäonnistui.";
+    }
+}
+
+
+// Näytetään ottelut verkkosivulla
+function displayGames(games) {
+
+    const gamesContainer = document.getElementById("games");
+
+    gamesContainer.innerHTML = "";
+
+    if (!games || games.length === 0) {
+
+        gamesContainer.textContent =
+            "Tänään ei ole NHL-otteluita.";
+
+        return;
+    }
+
+    games.forEach(game => {
+
+        const gameCard = document.createElement("div");
+
+        gameCard.classList.add("team-card");
+
+        const homeTeam = document.createElement("h3");
+        homeTeam.textContent =
+            game.homeTeam.abbrev + " " + game.homeTeam.score;
+
+        const awayTeam = document.createElement("h3");
+        awayTeam.textContent =
+            game.awayTeam.abbrev + " " + game.awayTeam.score;
+
+        const status = document.createElement("p");
+        status.textContent = game.gameState;
+
+        gameCard.appendChild(homeTeam);
+        gameCard.appendChild(awayTeam);
+        gameCard.appendChild(status);
+
+        gamesContainer.appendChild(gameCard);
+
+    });
+}
+
+
+// Käynnistetään otteluiden haku
+getGames();
