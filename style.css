@@ -1,168 +1,416 @@
 
-/* Sivun yleinen ulkoasu */
-body {
+/* ==========================================
+   HOCKEY CENTER
+   Modern Glassmorphism Design
+========================================== */
+
+/* Yleiset asetukset */
+* {
+    box-sizing: border-box;
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #101827;
-    color: white;
+    padding: 0;
 }
 
-/* Yläpalkki */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #f4f7ff;
+    min-height: 100vh;
+
+    background:
+        radial-gradient(circle at 10% 10%, rgba(0, 224, 255, 0.15), transparent 30%),
+        radial-gradient(circle at 90% 20%, rgba(151, 71, 255, 0.20), transparent 30%),
+        linear-gradient(135deg, #080d1d, #111a35 55%, #101027);
+
+    background-attachment: fixed;
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
 header {
-    background-color: #182b45;
+    position: relative;
+    overflow: hidden;
     text-align: center;
-    padding: 30px;
+    padding: 65px 20px;
+
+    background: linear-gradient(
+        120deg,
+        rgba(15, 30, 65, 0.95),
+        rgba(43, 35, 100, 0.85)
+    );
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
 }
 
-/* Pääotsikko */
+header::before {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: rgba(0, 225, 255, 0.12);
+    filter: blur(70px);
+    top: -150px;
+    left: 10%;
+}
+
+header::after {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: rgba(155, 80, 255, 0.16);
+    filter: blur(70px);
+    bottom: -180px;
+    right: 10%;
+}
+
 header h1 {
-    font-size: 36px;
-    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+
+    background: linear-gradient(90deg, #ffffff, #63eaff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
-/* Pääsisältö */
+header p {
+    position: relative;
+    z-index: 1;
+    color: #bdc9e8;
+    font-size: 17px;
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================
+   MAIN CONTENT
+========================================== */
+
 main {
-    padding: 30px;
+    width: 100%;
+    max-width: 1450px;
+    margin: auto;
+    padding: 40px 25px 70px;
 }
 
-/* Joukkueiden korttien asettelu */
-#teams {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
+section {
+    margin-bottom: 50px;
 }
 
-/* Yksittäinen joukkuekortti */
-.team-card {
-    background-color: #1d304b;
-    padding: 20px;
-    border-radius: 12px;
-    border: 1px solid #344b68;
-}
+/* Osioiden otsikot */
 
-/* Joukkueen nimi */
-.team-card h3 {
+main h2 {
     color: #ffffff;
-    font-size: 20px;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 23px;
+    padding-left: 15px;
+
+    border-left: 4px solid #48ddff;
+    text-shadow: 0 0 15px rgba(72, 221, 255, 0.15);
 }
 
-/* Joukkueen tilastot */
-.team-card p {
-    color: #cbd5e1;
-}
+/* ==========================================
+   SEARCH INPUT
+========================================== */
 
-/* Hakukentän asettelu */
 .search-container {
     margin-bottom: 25px;
 }
 
-/* Hakukentän ulkoasu */
-#teamSearch {
+#teamSearch,
+#teamSelect {
     width: 100%;
-    max-width: 400px;
-    padding: 14px;
-    border-radius: 8px;
-    border: 1px solid #344b68;
-    background-color: #1d304b;
-    color: white;
-    font-size: 16px;
+    max-width: 430px;
+    padding: 15px 18px;
+
+    color: #ffffff;
+    font-size: 15px;
+
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.17);
+    border-radius: 13px;
+
+    backdrop-filter: blur(15px);
+
+    transition: all 0.25s ease;
 }
 
-/* Hakukentän vihjeteksti */
 #teamSearch::placeholder {
-    color: #aab8ca;
+    color: #9baaca;
 }
 
-/* Hakukentän aktiivinen tila */
-#teamSearch:focus {
-    outline: 2px solid #4b9fff;
+#teamSearch:focus,
+#teamSelect:focus {
+    outline: none;
+    border-color: #48ddff;
+    box-shadow: 0 0 18px rgba(72, 221, 255, 0.2);
 }
 
-/* Joukkuekortin sisältö */
+#teamSelect {
+    display: block;
+    margin-bottom: 22px;
+    cursor: pointer;
+}
+
+#teamSelect option {
+    background: #17203c;
+    color: white;
+}
+
+/* ==========================================
+   TEAM CARDS
+========================================== */
+
+#teams,
+#games,
+#teamSchedule {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 22px;
+}
+
+/* Lasimainen kortti */
+
 .team-card {
-    background-color: #1d304b;
+    position: relative;
+    overflow: hidden;
+
     padding: 25px;
-    border-radius: 12px;
-    border: 1px solid #344b68;
     text-align: center;
-    transition: transform 0.2s;
+
+    background: rgba(255, 255, 255, 0.075);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 18px;
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+/* Kortin yläreunan värikorostus */
+
+.team-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background: linear-gradient(
+        90deg,
+        #48ddff,
+        #9670ff,
+        #48ddff
+    );
 }
 
 /* Kortin hover-efekti */
+
 .team-card:hover {
-    transform: translateY(-5px);
-    border-color: #4b9fff;
+    transform: translateY(-7px);
+
+    border-color: rgba(72, 221, 255, 0.55);
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(72, 221, 255, 0.10);
 }
 
-/* Joukkueen logo */
+/* Joukkueiden logot */
+
 .team-logo {
     width: 90px;
     height: 90px;
     object-fit: contain;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+
+    filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.25));
+
+    transition: transform 0.3s ease;
 }
 
-/* Joukkueen nimi */
+.team-card:hover .team-logo {
+    transform: scale(1.08);
+}
+
+/* Korttien tekstit */
+
 .team-card h3 {
-    color: white;
-    font-size: 20px;
+    color: #ffffff;
+    font-size: 19px;
+    font-weight: 700;
+    margin: 8px 0 13px;
 }
 
-/* Joukkueen tilastot */
 .team-card p {
-    color: #cbd5e1;
-    margin: 8px 0;
+    color: #bdc9e8;
+    font-size: 14px;
+    margin: 9px 0;
 }
 
+/* ==========================================
+   GAME CARDS
+========================================== */
 
-/* Sarjataulukon ulkoasu */
+#games .team-card {
+    background: linear-gradient(
+        145deg,
+        rgba(30, 65, 105, 0.55),
+        rgba(95, 60, 145, 0.35)
+    );
+}
+
+#games .team-card h3 {
+    color: #65e6ff;
+    font-size: 21px;
+}
+
+#games .team-card p {
+    color: #d2d9f1;
+}
+
+/* ==========================================
+   STANDINGS TABLE
+========================================== */
+
 #standings {
+    width: 100%;
     overflow-x: auto;
-    margin-bottom: 35px;
+
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(18px);
+
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
 }
 
 #standings table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #1d304b;
-    border-radius: 10px;
-    overflow: hidden;
+    color: #f4f7ff;
 }
 
 #standings th {
-    background-color: #182b45;
-    color: #4b9fff;
-    padding: 14px;
+    padding: 17px;
     text-align: left;
+
+    color: #65e6ff;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+
+    background: rgba(72, 221, 255, 0.10);
 }
 
 #standings td {
-    padding: 12px 14px;
-    border-bottom: 1px solid #344b68;
+    padding: 15px 17px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    color: #d5def5;
+}
+
+#standings tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.035);
 }
 
 #standings tr:hover {
-    background-color: #29415f;
+    background: rgba(72, 221, 255, 0.10);
 }
 
-/* Otteluiden ja otteluohjelman kortit */
-#games,
-#teamSchedule {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    margin-bottom: 35px;
+/* ==========================================
+   SCROLLBAR
+========================================== */
+
+::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
 }
 
-/* Joukkuevalikko */
-#teamSelect {
-    padding: 12px;
-    width: 100%;
-    max-width: 400px;
-    border-radius: 8px;
-    border: 1px solid #344b68;
-    background-color: #1d304b;
-    color: white;
-    font-size: 16px;
-    margin-bottom: 20px;
+::-webkit-scrollbar-track {
+    background: #10172d;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(#48ddff, #9670ff);
+    border-radius: 10px;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+========================================== */
+
+@media (max-width: 700px) {
+
+    header {
+        padding: 45px 15px;
+    }
+
+    main {
+        padding: 25px 15px 45px;
+    }
+
+    main h2 {
+        font-size: 21px;
+    }
+
+    #teams,
+    #games,
+    #teamSchedule {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 15px;
+    }
+
+    .team-card {
+        padding: 19px;
+    }
+
+    .team-logo {
+        width: 75px;
+        height: 75px;
+    }
+
+    #standings th,
+    #standings td {
+        padding: 11px;
+        font-size: 13px;
+    }
+}
+
+/* Pienet puhelimet */
+
+@media (max-width: 400px) {
+
+    #teams,
+    #games,
+    #teamSchedule {
+        grid-template-columns: 1fr;
+    }
+
+    header h1 {
+        font-size: 32px;
+    }
 }
