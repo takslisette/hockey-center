@@ -56,7 +56,7 @@ https://ornate-genie-75d56b.netlify.app/
 
 ESITTELYVIDEO
 
-Videon linkki lisätään tähän, kun esittelyvideo on valmis.
+https://video.laurea.fi/media/Hockey-center+P2a/0_sz984s67
 
 ITSEARVIOINTI
 
@@ -71,3 +71,15 @@ Olen tyytyväinen sovelluksen lopputulokseen, koska sen keskeiset ominaisuudet t
 MAHDOLLISET JATKOKEHITYSIDEAT
 
 Sovellukseen voisi myöhemmin lisätä esimerkiksi pelaajatilastoja, tarkempia ottelutietoja ja lisää hakuvaihtoehtoja.
+
+
+LÄHTEET:
+NHL:n virallinen verkkosivu: https://www.nhl.com/
+
+JavaScript Fetch API -ohje: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
+
+JavaScript addEventListener -ohje: https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
+
+CORS-välityspalvelin proxy.cors.dev
+
+chatGTP ulkoasun viimeistelyssä ja koodin muokkaamisessa
